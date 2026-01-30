@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mt-5">
+  <div class="col-md-8 offset-md-2">
+
+    <!-- Powitanie i Wylogowanie -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="welcome-header">
+        <h2>Witaj, {{ user.username }}!</h2>
+      </div>
+      <a href="/logout" class="btn btn-outline-danger btn-sm">Wyloguj</a>
+    </div>
+
+    <!-- Formularz dodawania zadania -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <form action="/add" method="POST" class="d-flex gap-2">
+          <input type="text" name="title" class="form-control" placeholder="Co masz do zrobienia?" required>
+          <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Lista zadań -->
+    <ul class="list-group">
+      {% for todo in todos %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+
+        <!-- Nazwa zadania (jeśli zrobione, to przekreślone) -->
+        <span class="{% if todo.complete %}zrobione-zadanie{% endif %}">
+          {{ todo.title }}
+        </span>
+
+        <!-- Przyciski akcji -->
+        <div>
+          <a href="/update/{{ todo.id }}" class="btn btn-sm btn-success">✓</a>
+          <a href="/delete/{{ todo.id }}" class="btn btn-sm btn-danger">🗑</a>
+        </div>
+      </li>
+      {% else %}
+      <li class="list-group-item text-center text-muted">Brak zadań. Dodaj coś!</li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista Użytkowników</h2>
+
+<ul class="list-group mb-4">
+    {% for user in users.values() %}
+    <li class="list-group-item">
+        {{ user.name }}
+    </li>
+    {% endfor %}
+</ul>
+<div class="d-flex gap-2">
+    <a href="/login" class="btn btn-primary">Zaloguj</a>
+    <a href="/register" class="btn btn-outline-secondary">Zarejestruj</a>
+</div>
+{% endblock %}
